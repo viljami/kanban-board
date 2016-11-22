@@ -1,0 +1,20 @@
+.AddTask {
+  margin: 2px 2px;
+  padding: 7px 0;
+  border-bottom: 1px dashed #bbb;
+}
+
+.AddTask input[type="text"] {
+  border: 0 none #fff;
+  width: 100%;
+  font-size: 14px;
+  text-overflow: wrap;
+}
+
+.AddTask button {
+  float: right;
+}
+
+.AddTask .clearfix {
+  display: inline-block;
+}
