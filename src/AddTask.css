@@ -1,14 +1,18 @@
 .AddTask {
   margin: 2px 2px;
   padding: 7px 0;
-  border-bottom: 1px dashed #bbb;
+}
+
+.AddTask label {
+  font-size: 12px;
 }
 
 .AddTask input[type="text"] {
-  border: 0 none #fff;
-  width: 100%;
+  margin: 0 0 2px 0;
   font-size: 14px;
-  text-overflow: wrap;
+  width: 100%;
+  border: 0 none #fff;
+  border-bottom: 1px dotted #bbb;
 }
 
 .AddTask button {

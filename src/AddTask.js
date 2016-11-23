@@ -16,12 +16,13 @@ class AddTask extends Component {
   render() {
     return (
       <div className="AddTask">
+        <label htmlFor="task">Task:</label>
+        <button onClick={this.addTask}>Add</button>
         <input
+          id="task"
           type="text"
           ref={input => this.input = input}
           />
-        <button onClick={this.addTask}>Add</button>
-        <div className="clearfix"></div>
       </div>
     );
   }

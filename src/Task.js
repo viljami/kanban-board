@@ -12,10 +12,18 @@ class Task extends Component {
     return (
       <div className="Task">
         <p>{this.state.title}</p>
-        <p>{this.state.isDone ? 'DONE' : ''}</p>
       </div>
     );
   }
 }
+
+Task.propTypes = {
+  title: React.PropTypes.string.isRequired,
+  state: React.PropTypes.string
+};
+
+Task.defaultProps = {
+  state: 'todo'
+};
 
 export default Task;
