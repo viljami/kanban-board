@@ -9,7 +9,9 @@ class AddTask extends Component {
   }
 
   addTask (){
+    if (! this.input.value.trim()) return;
     console.log('add', this.input.value);
+    this.props.onAdd(this.input.value);
     this.input.value = '';
   }
 
@@ -27,5 +29,9 @@ class AddTask extends Component {
     );
   }
 }
+
+AddTask.propTypes = {
+  onAdd: React.PropTypes.func.isRequired
+};
 
 export default AddTask;

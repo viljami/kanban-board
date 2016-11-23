@@ -18,7 +18,3 @@
 .AddTask button {
   float: right;
 }
-
-.AddTask .clearfix {
-  display: inline-block;
-}

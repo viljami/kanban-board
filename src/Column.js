@@ -3,16 +3,15 @@ import React, { Component } from 'react';
 import './Column.css';
 
 class Column extends Component {
-  constructor (props){
-    super(props);
-    this.state = props;
+  shouldComponentUpdate(nextProps) {
+    return this.props.content.length !== nextProps.content.length;
   }
 
   render() {
     return (
       <div className="Column">
-        <p>{this.state.title}</p>
-        {this.state.content}
+        <p>{this.props.title}</p>
+        {this.props.content}
       </div>
     );
   }

@@ -1,39 +1,56 @@
 
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import AddTask from './AddTask';
 import Column from './Column';
-import Task from './Task';
+import Task from './task/Task';
+import * as TaskActions from './task/task.actions';
 import './App.css';
 
 class App extends Component {
+  shouldComponentUpdate(nextProps) {
+    return this.props.tasks.length !== nextProps.tasks.length;
+  }
+
   render() {
-    const tasks = [
-      {id:'11', title:'task 11', state:'todo'},
-      {id:'12', title:'task 12', state:'todo'},
-      {id:'13', title:'task 13', state:'todo'},
-      {id:'21', title:'task 21', state:'inProgress'},
-      {id:'22', title:'task 22', state:'inProgress'},
-      {id:'31', title:'task 31', state:'done'},
-      {id:'32', title:'task 32', state:'done'},
-      {id:'33', title:'task 33', state:'done'}
-    ];
+    console.log(this);
+
+    const tasks = this.props.tasks;
 
     const columns = ['todo']
     .concat(tasks.map(a => a.state))
     .reduce((a, b) => a.find(c => c === b) ? a : a.concat(b), [])
     .reduce((a, b) => (a[b] = []) && a, {});
 
-    columns['todo'].push(<AddTask />);
+    columns['todo'].push(<AddTask key="addtask1" onAdd={this.props.actions.addTask} />);
 
     tasks.forEach(a => columns[a.state].push(a));
 
-    const createTask = a => <Task key={a.id} title={a.title} state={a.state} />;
+    const createTask = a => <Task key={a.id} text={a.text} state={a.state} />;
     const kandbanHtml = Object.keys(columns)
-    .map(a => <Column title={a} content={columns[a].map(createTask)} />);
+    .map((a, i) =>
+      <Column key={"col" + i}
+        title={a}
+        content={columns[a].map(b => b.text ? createTask(b) : b)}
+      />
+    );
+console.log(kandbanHtml[0].props.content);
     return (
       <div className="App">{kandbanHtml}</div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  tasks: state.tasks
+});
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(TaskActions, dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
