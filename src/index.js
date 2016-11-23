@@ -9,7 +9,7 @@ import './index.css';
 
 const taskApp = combineReducers({tasks});
 const store = createStore(taskApp);
-console.log(store);
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

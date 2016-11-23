@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import AddTask from './AddTask';
 import Column from './Column';
 import Task from './task/Task';
@@ -10,32 +12,45 @@ import './App.css';
 
 class App extends Component {
   shouldComponentUpdate(nextProps) {
-    return this.props.tasks.length !== nextProps.tasks.length;
+    return this.props.tasks.length !== nextProps.tasks.length ||
+    this.props.tasks
+    .filter(a => {
+      const task = nextProps.tasks.find(b => b.id === a.id);
+      return task && (a.state !== task.state || a.text !== task.text);
+    }).length;
   }
 
   render() {
-    console.log(this);
-
-    const tasks = this.props.tasks;
+    const {tasks} = this.props;
 
     const columns = ['todo']
     .concat(tasks.map(a => a.state))
     .reduce((a, b) => a.find(c => c === b) ? a : a.concat(b), [])
     .reduce((a, b) => (a[b] = []) && a, {});
 
-    columns['todo'].push(<AddTask key="addtask1" onAdd={this.props.actions.addTask} />);
+    columns['todo'].push(
+      <AddTask
+        key="addtask1"
+        onAdd={this.props.actions.addTask}
+      />
+    );
 
     tasks.forEach(a => columns[a.state].push(a));
 
-    const createTask = a => <Task key={a.id} text={a.text} state={a.state} />;
+    const createTask = a => (
+      <Task id={a.id} key={a.id} text={a.text} state={a.state} />
+    );
     const kandbanHtml = Object.keys(columns)
     .map((a, i) =>
-      <Column key={"col" + i}
+      <Column
+        key={"col" + i}
         title={a}
-        content={columns[a].map(b => b.text ? createTask(b) : b)}
-      />
+        dropAction={this.props.actions.updateTask}
+      >
+        {columns[a].map(b => b.text ? createTask(b) : b)}
+      </Column>
     );
-console.log(kandbanHtml[0].props.content);
+
     return (
       <div className="App">{kandbanHtml}</div>
     );
@@ -47,10 +62,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(TaskActions, dispatch)
+  actions: bindActionCreators(TaskActions, dispatch)
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(DragDropContext(HTML5Backend)(App));

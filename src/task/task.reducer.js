@@ -22,10 +22,10 @@ function task (state = {}, action = '') {
       };
     case UPDATE_TASK:
       if (state.id !== action.id) return state;
-      return Object.assign({}, state, {
-        text: state.text,
-        state: state.state
-      });
+      const o = {};
+      if (action.text) o.text = action.text;
+      if (action.state) o.state = action.state;
+      return Object.assign({}, state, o);
     default:
       return state;
   }

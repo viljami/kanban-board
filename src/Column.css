@@ -1,3 +1,7 @@
 .Column {
   flex: 1;
 }
+
+.Column.isOver {
+  background-color: #9eff9e;
+}

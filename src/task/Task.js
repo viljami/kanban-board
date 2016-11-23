@@ -1,23 +1,34 @@
 
 import React, { PureComponent } from 'react';
+import { DragSource } from 'react-dnd';
 import './Task.css';
 
-class Task extends PureComponent {
-  constructor (props){
-    super(props);
-    this.state = props;
+const taskSource = {
+  beginDrag(task) {
+    return {taskId: task.id, source: task.state};
   }
+};
 
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
+
+class Task extends PureComponent {
   render() {
-    return (
-      <div className="Task">
-        <p>{this.state.text}</p>
+    const { connectDragSource, isDragging } = this.props;
+    return connectDragSource(
+      <div className={'Task' + (isDragging ? ' isDragging' : '')}>
+        <p>{this.props.text}</p>
       </div>
     );
   }
 }
 
 Task.propTypes = {
+  id: React.PropTypes.string.isRequired,
   text: React.PropTypes.string.isRequired,
   state: React.PropTypes.string
 };
@@ -26,4 +37,4 @@ Task.defaultProps = {
   state: 'todo'
 };
 
-export default Task;
+export default DragSource('TASK', taskSource, collect)(Task);
