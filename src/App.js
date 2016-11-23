@@ -24,7 +24,6 @@ class App extends Component {
     .reduce((a, b) => (a[b] = []) && a, {});
 
     columns['todo'].push(<AddTask />);
-console.log(columns);
 
     tasks.forEach(a => columns[a.state].push(a));
 
