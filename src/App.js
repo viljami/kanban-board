@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     const {tasks} = this.props;
 
-    const columns = ['todo']
+    const columns = ['todo', 'inProgress', 'done']
     .concat(tasks.map(a => a.state))
     .reduce((a, b) => a.find(c => c === b) ? a : a.concat(b), [])
     .reduce((a, b) => (a[b] = []) && a, {});
