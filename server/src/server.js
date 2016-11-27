@@ -3,13 +3,13 @@
 
 var app = require('http').createServer();
 var io = require('socket.io')(app);
-const port = 3000;
+const port = 3001;
 app.listen(port);
 
 module.exports = function startServer(store) {
   console.log('Start Server...');
 
-  const getState = () => ({type: 'SET_TASKS', data: store.getState()});
+  const getState = () => ({type: 'SET_TASKS', tasks: store.getState()});
   io.emit('message', getState());
 
   io.on('connection', function(socket){
