@@ -1,9 +1,13 @@
 {
   "name": "kanban",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
+  "description": "A simple Kanban board",
+  "license": "MIT",
+  "author": "Viljami Peltola",
   "devDependencies": {
-    "react-scripts": "0.7.0"
+    "react-scripts": "0.7.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   },
   "dependencies": {
     "react": "^15.4.0",
@@ -11,12 +15,15 @@
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.4.0",
     "react-redux": "^4.4.6",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-ws": "^0.2.0",
+    "socket.io": "^1.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-server": "node server/index.js",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "./node_modules/mocha/bin/mocha server/test",
     "eject": "react-scripts eject"
   }
 }
