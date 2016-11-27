@@ -10,7 +10,7 @@ let id;
 for (id = 0; id < 10; ++id){
   initialState.push({
     id: id,
-    text: 'test 1',
+    text: 'test ' + id,
     state: states[id % 3]
   });
 }
