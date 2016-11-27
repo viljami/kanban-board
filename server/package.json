@@ -1,0 +1,19 @@
+{
+  "name": "kanban-server",
+  "version": "0.0.0",
+  "description": "Server stub for the kanban client",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "author": "viljami peltola",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
