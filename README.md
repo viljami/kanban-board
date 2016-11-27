@@ -8,6 +8,7 @@ Todo
   * edit tasks (other than column they are in)
   * remove tasks
   * style
+  * namespace server and client action types separately
 
 ## Setup
 
