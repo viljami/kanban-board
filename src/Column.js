@@ -9,7 +9,8 @@ const columnTarget = {
   },
 
   drop(props, monitor) {
-    props.dropAction(monitor.getItem().taskId, undefined, props.title);
+    const task = monitor.getItem().task;
+    props.dropAction(task.id, task.text, props.title);
   }
 };
 

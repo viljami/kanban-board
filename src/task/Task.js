@@ -5,7 +5,7 @@ import './Task.css';
 
 const taskSource = {
   beginDrag(task) {
-    return {taskId: task.id, source: task.state};
+    return {task: task, source: task.state};
   }
 };
 
@@ -28,7 +28,7 @@ class Task extends PureComponent {
 }
 
 Task.propTypes = {
-  id: React.PropTypes.string.isRequired,
+  id: React.PropTypes.number.isRequired,
   text: React.PropTypes.string.isRequired,
   state: React.PropTypes.string
 };
