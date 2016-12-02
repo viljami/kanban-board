@@ -1,22 +1,5 @@
 
-import { CREATE_TASK, SET_TASKS, UPDATE_TASK } from './task.action.types';
-
-const initialColumns = ['todo', 'inProgress', 'done'];
-const initialState = {
- todo: [],
- inProgress: [],
- done: []
-};
-
-const spreadTasksToColumns = tasks => {
-  const columns = initialColumns
-  .concat(tasks.map(a => a.state))
-  .reduce((a, b) => a.find(c => c === b) ? a : a.concat(b), [])
-  .reduce((a, b) => (a[b] = []) && a, {});
-
-  tasks.forEach(a => columns[a.state].push(a));
-  return columns;
-};
+import { CREATE_TASK, UPDATE_TASK } from './task.action.types';
 
 function task (state = {}, action = {}) {
   switch (action.type) {
@@ -37,17 +20,14 @@ function task (state = {}, action = {}) {
   }
 }
 
-const tasks = (state = initialState, action = {}) => {
+const tasks = (state, action = {}) => {
   switch (action.type) {
-    case SET_TASKS:
-      return spreadTasksToColumns(action.tasks);
     case CREATE_TASK:
       if (! action.state) action.state = 'todo';
-      state[action.state].push(task(undefined, action));
-      return state;
+      return [...state, task(undefined, action)];
     case UPDATE_TASK:
       if (! action.state) action.state = 'todo';
-      return state[action.state].map(o => task(o, action));
+      return state.map(o => task(o, action));
     default:
       return state;
   }

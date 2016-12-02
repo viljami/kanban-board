@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import App from './App';
-import tasks from './task/task.reducer';
+import columns from './column/column.reducer';
 import './index.css';
 import connector from './connector';
 
-const taskApp = combineReducers({tasks});
+const taskApp = combineReducers({columns: columns});
 const connection = connector();
 
 const store = createStore(
