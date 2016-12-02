@@ -18,6 +18,8 @@ npm install
 
 ## Run
 
+Tested on Node v7.2.0 and OSX only.
+
 ```
 npm start
 npm run-script start-server
