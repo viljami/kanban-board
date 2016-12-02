@@ -15,7 +15,6 @@ const spreadTasksToColumns = tasks => {
   .reduce((a, b) => (a[b] = []) && a, {});
 
   tasks.forEach(a => columns[a.state].push(a));
-  console.log(columns);
   return columns;
 };
 
