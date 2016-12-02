@@ -1,7 +1,14 @@
 
 import React, { Component, PropTypes } from 'react';
 import { DropTarget } from 'react-dnd';
+import AddTask from './AddTask';
+import Task from './task/Task';
 import './Column.css';
+
+
+const createTask = a => (
+  <Task id={a.id} key={a.id} text={a.text} state={a.state} />
+);
 
 const columnTarget = {
   canDrop(column, monitor) {
@@ -24,26 +31,24 @@ function collect(connect, monitor) {
 }
 
 class Column extends Component {
-  shouldComponentUpdate(nextProps) {
-    return this.props.children.length !== nextProps.children.length;
-  }
-
   render() {
-    const {connectDropTarget} = this.props;
+    const {connectDropTarget, tasks, addTask} = this.props;
 
     return connectDropTarget(
       <div className="Column">
         <p>{this.props.title}</p>
-        {this.props.children}
+        {this.props.addTask ? <AddTask onAdd={addTask}/> : ''}
+        {tasks.map(createTask)}
       </div>
     );
   }
 }
 
 Column.propTypes = {
-  title: PropTypes.string.isRequired,
+  addTask: PropTypes.any,
   dropAction: PropTypes.func.isRequired,
-  draggedTask: PropTypes.object
+  tasks: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default DropTarget('TASK', columnTarget, collect)(Column);
